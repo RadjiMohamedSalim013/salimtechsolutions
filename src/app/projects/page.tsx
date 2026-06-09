@@ -1,99 +1,183 @@
 'use client'
+
 import { useState } from 'react'
 import Image from 'next/image'
-import { FaExternalLinkAlt} from 'react-icons/fa'
-import { motion } from 'framer-motion'
-import { projets, Projet } from '@/data/projets'  
+import { FaExternalLinkAlt, FaPlay } from 'react-icons/fa'
+import { motion, AnimatePresence } from 'framer-motion'
+import { projets, Projet } from '@/data/projets'
 import FilterButtons from '@/components/projects/FilterButtons'
 
 export default function Projects() {
-  const [filter, setFilter] = useState<'all' | 'web' | 'design'>('all')
+  const [filter, setFilter] =
+    useState<'all' | 'web' | 'design' | 'video' | 'branding' | 'event'>('all')
 
-  const filteredProjects = filter === 'all' 
-    ? projets 
-    : projets.filter(p => p.categorie === filter)
+  const [selectedProject, setSelectedProject] = useState<Projet | null>(null)
+
+  const filteredProjects =
+    filter === 'all'
+      ? projets
+      : projets.filter(p => p.categorie === filter)
 
   return (
-    <main className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6">
-      {/* Hero Section */}
-      <section className="max-w-6xl mx-auto text-center mb-20">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
-        >
-          Mes <span className="text-blue-600">réalisations</span>
-        </motion.h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Découvrez une sélection de mes projets web et créations graphiques
-        </p>
-      </section>
+    <main className="min-h-screen relative text-white overflow-hidden bg-[#0b1220]">
 
-      {/* Filtres */}
-      <div className="max-w-6xl mx-auto mb-12 flex justify-center">
-        <FilterButtons filter={filter} setFilter={setFilter} />
-      </div>
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 opacity-[0.08] bg-[radial-gradient(#ffffff22_1px,transparent_1px)] bg-[size:30px_30px]" />
 
-      {/* Grille de projets */}
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredProjects.map((projet: Projet) => (
-          <motion.article
-            key={projet.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
-          >
-            {/* Badge de catégorie */}
-            <div className={`absolute top-4 right-4 z-10 px-3 py-1 rounded-full text-xs font-semibold ${projet.categorie === 'web' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'}`}>
-              {projet.categorie === 'web' ? 'Web' : 'Design'}
-            </div>
+      <div className="relative z-10 py-20 px-4 max-w-6xl mx-auto">
 
-            {/* Image du projet */}
-            <div className="relative h-48 overflow-hidden">
-              <Image
-                src={projet.image}
-                alt={projet.titre}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
-            </div>
+        {/* TITLE */}
+        <h1 className="text-4xl font-bold text-center mb-10">
+          Nos <span className="text-[#cc4b4b]">réalisations</span>
+        </h1>
 
-            {/* Contenu texte */}
-            <div className="p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-2">{projet.titre}</h2>
-              <p className="text-gray-600 mb-4">{projet.description}</p>
-              
-              {/* Technologies */}
-              <div className="mb-4">
-                <div className="flex flex-wrap gap-2">
-                  {projet.techno.map((tech, i) => (
+        {/* FILTER */}
+        <div className="flex justify-center mb-12">
+          <FilterButtons filter={filter} setFilter={setFilter} />
+        </div>
+
+        {/* GRID */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          {filteredProjects.map((p: Projet) => (
+            <motion.div
+              key={p.id}
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.3 }}
+              className="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10 backdrop-blur-md cursor-pointer"
+              onClick={() => setSelectedProject(p)}
+            >
+
+              {/* IMAGE */}
+              <div className="relative h-52 overflow-hidden">
+
+                <Image
+                  src={p.image}
+                  alt={p.titre}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+
+                {/* HOVER OVERLAY */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+
+                  <div className="flex flex-col items-center gap-2">
+
+                    <span className="text-xs bg-white/10 px-3 py-1 rounded-full">
+                      Cliquer pour voir
+                    </span>
+
+                    <span className="text-[10px] text-white/60">
+                      Vue immersive
+                    </span>
+
+                  </div>
+                </div>
+
+                {/* BADGE */}
+                <div className="absolute top-3 left-3 text-[10px] bg-black/60 px-2 py-1 rounded">
+                  {p.categorie}
+                </div>
+
+              </div>
+
+              {/* CONTENT */}
+              <div className="p-5">
+                <h2 className="font-bold">{p.titre}</h2>
+                <p className="text-white/60 text-sm mt-2">
+                  {p.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {p.techno.map((t, i) => (
                     <span
                       key={i}
-                      className={`text-xs px-2.5 py-1 rounded-full ${projet.categorie === 'web' ? 'bg-blue-50 text-blue-700' : 'bg-purple-50 text-purple-700'}`}
+                      className="text-[10px] bg-white/10 px-2 py-1 rounded"
                     >
-                      {tech}
+                      {t}
                     </span>
                   ))}
                 </div>
               </div>
 
-              {/* Bouton */}
-              <a
-                href={projet.lien}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center px-4 py-2 rounded-lg ${projet.categorie === 'web' ? 'bg-blue-600 hover:bg-blue-700' : 'bg-purple-600 hover:bg-purple-700'} text-white transition-colors`}
-              >
-                Voir le projet <FaExternalLinkAlt className="ml-2 text-sm" />
-              </a>
-            </div>
-          </motion.article>
-        ))}
+            </motion.div>
+          ))}
+
+        </div>
       </div>
+
+      {/* MODAL */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              className="relative w-full max-w-6xl h-[85vh] bg-[#0e1b2f] rounded-2xl overflow-hidden"
+            >
+
+              {/* TOP BAR */}
+              <div className="absolute top-0 left-0 w-full flex items-center justify-between px-4 py-3 bg-black/40 z-10">
+
+                <h3 className="text-sm font-semibold">
+                  {selectedProject.titre}
+                </h3>
+
+                <div className="flex items-center gap-2">
+
+                  {/* OPEN NEW TAB */}
+                  {selectedProject.categorie === 'web' && (
+                    <a
+                      href={selectedProject.lien}
+                      target="_blank"
+                      className="text-xs px-3 py-1 bg-white text-black rounded"
+                    >
+                      Ouvrir
+                    </a>
+                  )}
+
+                  <button
+                    onClick={() => setSelectedProject(null)}
+                    className="text-xs px-3 py-1 bg-white/10 rounded"
+                  >
+                    Fermer
+                  </button>
+
+                </div>
+              </div>
+
+              {/* CONTENT */}
+              <div className="w-full h-full pt-12">
+
+                {/* VIDEO */}
+                {(selectedProject.categorie === 'video' ||
+                  selectedProject.categorie === 'event') ? (
+                  <video
+                    src={selectedProject.lien}
+                    controls
+                    className="w-full h-full"
+                  />
+                ) : (
+                  <iframe
+                    src={selectedProject.lien}
+                    className="w-full h-full"
+                  />
+                )}
+
+              </div>
+
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </main>
   )
 }

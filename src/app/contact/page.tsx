@@ -1,232 +1,182 @@
-'use client'
-import { useState } from 'react'
-import { FaGithub, FaLinkedin, FaTwitter, FaPaperPlane, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa'
-import { motion } from 'framer-motion'
+"use client";
+
+import { useState } from "react";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaTwitter,
+  FaPaperPlane,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope,
+} from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    nom: '',
-    email: '',
-    message: ''
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [success, setSuccess] = useState(false)
+    nom: "",
+    email: "",
+    message: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-  }
+    const { name, value } = e.target;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Simulation d'envoi
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      console.log('Form submitted:', formData)
-      setSuccess(true)
-      setFormData({ nom: '', email: '', message: '' })
-    } catch (error) {
-      console.error('Error:', error)
+      await new Promise((r) => setTimeout(r, 1200));
+
+      setSuccess(true);
+      setFormData({ nom: "", email: "", message: "" });
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
-    <main className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Section Titre */}
-        <motion.div 
+    <main className="relative min-h-screen pt-32 pb-20 px-6 bg-[#0b1220] overflow-hidden">
+
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-[-200px] right-[-200px] w-[500px] h-[500px] bg-[#cc4b4b]/20 blur-[140px] rounded-full" />
+        <div className="absolute bottom-[-200px] left-[-200px] w-[500px] h-[500px] bg-blue-500/10 blur-[160px] rounded-full" />
+      </div>
+
+      {/* GRID */}
+      <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+
+      <div className="relative max-w-6xl mx-auto">
+
+        {/* HEADER */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Contact 
+          <p className="text-xs tracking-[0.3em] text-[#cc4b4b] uppercase font-semibold">
+            SALIMTECH SOLUTIONS
+          </p>
+
+          <h1 className="text-3xl md:text-5xl font-bold text-white mt-4">
+            Construisons ensemble votre projet digital
           </h1>
-         
+
+          <p className="text-white/60 mt-4 max-w-2xl mx-auto text-sm">
+            Une idée, un projet ou une marque ? Nous transformons vos besoins en solutions digitales modernes.
+          </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Section Informations */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-white p-8 rounded-2xl shadow-lg"
-          >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Mes coordonnées</h2>
-            
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <div className="bg-blue-100 p-3 rounded-full mr-4">
-                  <FaMapMarkerAlt className="text-blue-600 text-xl" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Localisation</h3>
-                  <p className="text-gray-600">Abidjan, Côte d{'\''}Ivoire</p>
-                </div>
+        {/* GRID */}
+        <div className="grid md:grid-cols-2 gap-10">
+
+          {/* LEFT */}
+          <div className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-6">
+
+            <h2 className="text-white font-semibold mb-6 text-sm tracking-widest uppercase">
+              Informations
+            </h2>
+
+            <div className="space-y-5 text-white/70 text-sm">
+
+              <div className="flex items-center gap-3">
+                <FaMapMarkerAlt className="text-[#cc4b4b]" />
+                Abidjan, Côte d’Ivoire
               </div>
 
-              <div className="flex items-start">
-                <div className="bg-blue-100 p-3 rounded-full mr-4">
-                  <FaEnvelope className="text-blue-600 text-xl" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Email</h3>
-                  <a 
-                    href="mailto:contact@votrenom.com" 
-                    className="text-blue-600 hover:underline"
-                  >
-                    radjimohamed013@gmail.com
-                  </a>
-                </div>
+              <div className="flex items-center gap-3">
+                <FaEnvelope className="text-[#cc4b4b]" />
+                radjimohamed013@gmail.com
               </div>
 
-              <div className="flex items-start">
-                <div className="bg-blue-100 p-3 rounded-full mr-4">
-                  <FaPhone className="text-blue-600 text-xl" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Téléphone</h3>
-                  <a 
-                    href="tel:+2250000000000" 
-                    className="text-gray-600 hover:text-blue-600"
-                  >
-                    +225 07 58 91 38 73
-                  </a>
-                </div>
+              <div className="flex items-center gap-3">
+                <FaPhone className="text-[#cc4b4b]" />
+                +225 07 58 91 38 73
               </div>
+
             </div>
 
-            {/* Réseaux sociaux */}
-            <div className="mt-12">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Suivez-moi</h3>
-              <div className="flex space-x-4">
-                <a
-                  href="https://github.com/tonusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gray-100 hover:bg-gray-200 p-3 rounded-full text-gray-700 transition-colors"
+            <div className="flex gap-3 mt-8">
+              {[FaGithub, FaLinkedin, FaTwitter].map((Icon, i) => (
+                <div
+                  key={i}
+                  className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-[#cc4b4b]/40 transition cursor-pointer"
                 >
-                  <FaGithub className="text-xl" />
-                </a>
-                <a
-                  href="https://linkedin.com/in/tonprofil"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gray-100 hover:bg-blue-100 p-3 rounded-full text-blue-700 transition-colors"
-                >
-                  <FaLinkedin className="text-xl" />
-                </a>
-                <a
-                  href="https://twitter.com/tonpseudo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gray-100 hover:bg-blue-50 p-3 rounded-full text-blue-500 transition-colors"
-                >
-                  <FaTwitter className="text-xl" />
-                </a>
-              </div>
+                  <Icon size={14} />
+                </div>
+              ))}
             </div>
-          </motion.div>
 
-          {/* Section Formulaire */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-white p-8 rounded-2xl shadow-lg"
-          >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Envoyez un message</h2>
-            
+          </div>
+
+          {/* RIGHT FORM */}
+          <div className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-6">
+
+            <h2 className="text-white font-semibold mb-6 text-sm tracking-widest uppercase">
+              Envoyer un message
+            </h2>
+
             {success ? (
-              <div className="text-center py-12">
-                <div className="bg-green-100 text-green-800 p-4 rounded-lg inline-flex items-center">
-                  <FaPaperPlane className="mr-2" />
-                  <span>Message envoyé avec succès !</span>
-                </div>
-                <p className="mt-6 text-gray-600">
-                  Je vous répondrai dans les plus brefs délais.
+              <div className="text-center text-white/80 py-10">
+                <p className="text-green-400">Message envoyé ✔</p>
+                <p className="text-sm text-white/60 mt-2">
+                  Nous vous répondons rapidement.
                 </p>
-                <button
-                  onClick={() => setSuccess(false)}
-                  className="mt-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
-                >
-                  Nouveau message
-                </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="nom" className="block text-sm font-medium text-gray-700 mb-1">
-                    Nom complet *
-                  </label>
-                  <input
-                    type="text"
-                    id="nom"
-                    name="nom"
-                    value={formData.nom}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                  />
-                </div>
+              <form onSubmit={handleSubmit} className="space-y-5">
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                  />
-                </div>
+                <input
+                  name="nom"
+                  value={formData.nom}
+                  onChange={handleChange}
+                  placeholder="Votre nom"
+                  className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-[#cc4b4b]"
+                />
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                    Votre message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                  ></textarea>
-                </div>
+                <input
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Votre email"
+                  className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-[#cc4b4b]"
+                />
+
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Votre message..."
+                  rows={5}
+                  className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-[#cc4b4b]"
+                />
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full flex items-center justify-center px-6 py-3 rounded-lg text-white font-medium transition-colors ${isSubmitting ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'}`}
+                  className="w-full flex items-center justify-center gap-2 bg-[#cc4b4b] hover:bg-[#d95454] text-white text-sm font-medium py-3 rounded-xl transition"
                 >
-                  {isSubmitting ? (
-                    'Envoi en cours...'
-                  ) : (
-                    <>
-                      <FaPaperPlane className="mr-2" />
-                      Envoyer le message
-                    </>
-                  )}
+                  <FaPaperPlane size={12} />
+                  {isSubmitting ? "Envoi..." : "Envoyer"}
                 </button>
+
               </form>
             )}
-          </motion.div>
+          </div>
+
         </div>
       </div>
     </main>
-  )
+  );
 }

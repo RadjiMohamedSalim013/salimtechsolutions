@@ -1,113 +1,159 @@
-'use client'
-import Image from 'next/image'
-import Link from 'next/link'
-import { FaArrowRight,  FaExternalLinkAlt, FaTools } from 'react-icons/fa'
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
 
 export default function ProjectsSection() {
   const projects = [
     {
       id: 1,
       titre: "ProxiTalents",
-      description: "ProxiTalent est une plateforme web dédiée à la mise en relation de talents et d'entreprises .",
+      description:
+        "Une plateforme intelligente de mise en relation entre talents et entreprises, pensée pour optimiser le recrutement et la visibilité des profils.",
       image: "/web/ProxiTalent.jpg",
-      techno: ["MERN",  "Tailwind", 'HTML', 'MongoDB'],
+      techno: ["MERN", "Tailwind", "MongoDB"],
       lien: "https://proxitalents-frontend.onrender.com",
-      categorie: "web"
+      categorie: "Web Application",
     },
     {
       id: 2,
-      titre: "Affiche Rentrée Scolaire",
-      description: "Conception d'affiche sans le cadre de la rentrée scolaire 2024-2025 pour une Assocation Islamique",
+      titre: "Campagne Visuelle – Rentrée Scolaire",
+      description:
+        "Conception d’une identité visuelle et d’un support de communication pour une campagne à fort impact.",
       image: "/affiche/jfsiscolaire.png",
-      techno: ["canva"],
+      techno: ["Canva", "Branding"],
       lien: "https://drive.google.com/file/d/1XzxQQdP9MoobpQMpZtelJtaVS64W0tvP/view?usp=sharing",
-      categorie: "design"
+      categorie: "Brand Design",
     },
     {
       id: 3,
-      titre: "TodoApp",
-      description: " Cette application permet aux utilisateurs de créer, lire, mettre à jour et supprimer des tâches avec une interface propre et réactive.",
+      titre: "TodoApp Business",
+      description:
+        "Application de gestion de tâches performante conçue pour améliorer la productivité et la gestion quotidienne.",
       image: "/web/TodoApp.jpg",
       techno: ["React", "Node.js", "MongoDB"],
       lien: "https://todoappnext.onrender.com",
-      categorie: "web"
+      categorie: "Web Tools",
     },
-  ]
+  ];
 
   return (
-    <section id="projects" className="py-20 px-6 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            Mes <span className="text-blue-600">réalisations</span>
+    <section className="relative py-28 bg-[#0e1b2f] overflow-hidden">
+
+      {/* BACKGROUND LAYERS */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0e1b2f] via-[#0f1f36] to-[#0e1b2f]" />
+
+      {/* GLOW EFFECTS */}
+      <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#cc4b4b]/15 blur-[150px] rounded-full" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-500/10 blur-[160px] rounded-full" />
+
+      {/* GRID TEXTURE */}
+      <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+
+        {/* HEADER */}
+        <div className="text-center mb-14">
+          <span className="text-[#cc4b4b] text-xs tracking-[0.3em] uppercase font-semibold">
+            Nos Réalisations
+          </span>
+
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mt-4">
+            Des projets concrets qui reflètent notre expertise digitale
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Des solutions sur mesure combinant performance, design et expérience utilisateur
+
+          <p className="text-white/60 mt-4 max-w-2xl mx-auto">
+            Nous concevons des solutions digitales modernes, performantes et adaptées aux besoins réels des entreprises.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        {/* PROJECT GRID */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+
           {projects.map((project) => (
-            <div key={project.id} className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all overflow-hidden flex flex-col h-full">
-              {/* Image du projet */}
-              <div className="relative h-48 overflow-hidden">
+            <a
+              key={project.id}
+              href={project.lien}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="
+                group relative overflow-hidden
+                rounded-2xl bg-white/5 backdrop-blur-md
+                border border-white/10
+                hover:border-[#cc4b4b]/40
+                hover:-translate-y-1
+                hover:shadow-[0_20px_60px_rgba(0,0,0,0.5)]
+                transition-all duration-300
+              "
+            >
+
+              {/* IMAGE */}
+              <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
                   src={project.image}
                   alt={project.titre}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-              </div>
 
-              {/* Contenu texte */}
-              <div className="p-6 flex-grow">
-                <h3 className="text-xl font-bold text-gray-800 mb-2">{project.titre}</h3>
-                <p className="text-gray-600 mb-4">{project.description}</p>
-                
-                {/* Technologies utilisées */}
-                <div className="mb-4">
-                  <div className="flex items-center text-gray-700 mb-2">
-                    <FaTools className="mr-2 text-blue-500" />
-                    <span className="font-medium">Technologies :</span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {project.techno.map((tech, index) => (
-                      <span key={index} className="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition" />
+
+                {/* CATEGORY */}
+                <span className="absolute top-3 left-3 bg-black/60 text-white px-2 py-1 rounded text-[9px] font-semibold tracking-wider uppercase backdrop-blur-sm">
+                  {project.categorie}
+                </span>
+
+                {/* ARROW */}
+                <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover:bg-[#cc4b4b] group-hover:border-[#cc4b4b] transition-all">
+                  <FiArrowUpRight size={13} />
                 </div>
               </div>
 
-              {/* Actions */}
-              <div className="px-6 pb-6 pt-2 border-t border-gray-100">
-                <div className="flex justify-between items-center">
+              {/* CONTENT */}
+              <div className="p-5">
+                <h3 className="text-white font-semibold text-base mb-2 group-hover:text-[#cc4b4b] transition">
+                  {project.titre}
+                </h3>
 
-                  <a 
-                    href={project.lien} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-                  >
-                    Voir le projet <FaExternalLinkAlt className="ml-2" />
-                  </a>
+                <p className="text-white/60 text-sm leading-relaxed mb-4">
+                  {project.description}
+                </p>
+
+                {/* TECH */}
+                <div className="flex flex-wrap gap-2">
+                  {project.techno.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="text-[10px] px-2 py-1 rounded bg-white/5 border border-white/10 text-white/60"
+                    >
+                      {tech}
+                    </span>
+                  ))}
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
+        {/* CTA */}
         <div className="text-center">
-          <Link 
-            href="/projects" 
-            className="inline-flex items-center bg-gray-900 hover:bg-gray-800 text-white py-3 px-8 rounded-full text-lg font-medium transition-all transform hover:scale-105"
+          <Link
+            href="/projects"
+            className="
+              inline-flex items-center gap-2
+              bg-[#cc4b4b] text-white px-7 py-3 rounded-full text-xs font-medium
+              shadow-[0_10px_30px_rgba(204,75,75,0.25)]
+              hover:bg-[#d95454]
+              transition-all duration-300 hover:-translate-y-0.5
+            "
           >
-            Voir tous mes projets <FaArrowRight className="ml-2" />
+            Voir toutes nos réalisations
+            <FiArrowRight className="text-[10px]" />
           </Link>
         </div>
+
       </div>
     </section>
-  )
+  );
 }

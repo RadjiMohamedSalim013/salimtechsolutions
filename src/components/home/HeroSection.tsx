@@ -1,62 +1,80 @@
-// components/Home/HeroSection.jsx
-'use client'
-import Image from 'next/image'
-import Link from 'next/link'
-import { FaArrowRight, FaGithub, FaLinkedin } from 'react-icons/fa'
+"use client";
+
+import Link from "next/link";
+import { FaArrowRight } from "react-icons/fa";
 
 export default function HeroSection() {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <Image src="/hero-bg.jpg" alt="Background" fill className="object-cover" priority quality={100} />
-        <div className="absolute inset-0 bg-black/60"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/40"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/30"></div>
+    <section className="relative min-h-screen flex items-center bg-[#0e1b2f] pt-24 pb-16 overflow-hidden selection:bg-[#cc4b4b]/30">
+
+      {/* BACKGROUND IMAGE TECH (DIGITAL) */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80"
+          alt="digital technology background"
+          className="w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-[#0e1b2f]/80" />
       </div>
 
-      <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
-        <div className="mb-8">
-          <div className="relative inline-block">
-            <Image src="/profil.jpg" alt="Profil" width={150} height={150} className="rounded-full border-4 border-white/90 shadow-xl" />
-            <div className="absolute inset-0 rounded-full border-2 border-white/30 animate-pulse"></div>
-          </div>
+      {/* GLOW EFFECTS */}
+      <div className="absolute top-1/4 right-[-10%] w-[600px] h-[600px] bg-[#cc4b4b]/10 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-white/[0.02] blur-[100px] rounded-full pointer-events-none" />
+
+      {/* GRID OVERLAY */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6 w-full relative z-10 text-center">
+
+        {/* BADGE */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-xs text-white/80 mb-6">
+          <span className="w-2 h-2 rounded-full bg-[#cc4b4b] animate-pulse"></span>
+          Agence spécialisée en développement digital
         </div>
 
-        <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-          <span className="relative">
-            <span className="absolute inset-0 bg-black/20 blur-md rounded-full"></span>
-            <span className="relative text-blue-400">Bonjour,</span>
-          </span> je suis <span className="text-white relative">Radji Mohamed Salim<span className="absolute -bottom-1 left-0 w-full h-1 bg-blue-400/80"></span></span>
+        {/* TITLE */}
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/60 leading-tight">
+          Nous créons des solutions digitales modernes, performantes et sur mesure
         </h1>
 
-        <h2 className="inline-block text-xl md:text-2xl font-semibold text-white mb-8 px-4 py-2 rounded-lg bg-black/30 backdrop-blur-sm border border-white/10">
-          Développeur Full-Stack | Créateur d{'\''}expériences digitales
-        </h2>
+        {/* TEXT */}
+        <p className="mt-6 text-base sm:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
+          Nous accompagnons les entreprises dans leur transformation digitale à travers la conception de sites web, applications et expériences numériques innovantes.
+        </p>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <Link href="/projects" className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-lg border-2 border-white/20">
-            Explorer mon travail <FaArrowRight />
+        {/* CTA */}
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+
+          <Link
+            href="/services"
+            className="
+              inline-flex items-center gap-2
+              bg-[#cc4b4b] text-white px-6 py-3 rounded-full text-xs font-medium
+              shadow-[0_4px_20px_rgba(204,75,75,0.25)]
+              hover:bg-[#d95454] transition-all duration-300
+              hover:-translate-y-0.5
+            "
+          >
+            Voir nos services
+            <FaArrowRight className="text-[10px]" />
           </Link>
-          <Link href="/contact" className="flex items-center gap-2 bg-white/90 hover:bg-white text-gray-900 py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-lg border-2 border-white/20">
-            Discutons de votre projet
+
+          <Link
+            href="/contact"
+            className="
+              inline-flex items-center
+              px-6 py-3 rounded-full text-xs font-medium
+              bg-white/[0.02] border border-white/10
+              text-white/80 hover:text-white hover:bg-white/[0.06]
+              transition-all duration-200
+            "
+          >
+            Demander un devis
           </Link>
+
         </div>
 
-        <div className="flex justify-center space-x-4">
-          <a href="https://github.com/RadjiMohamedSalim013" className="bg-black/40 hover:bg-black/60 text-white p-3 rounded-full transition-all backdrop-blur-sm border border-white/10">
-            <FaGithub size={20} />
-          </a>
-          <a href="https://www.linkedin.com/in/mohamed-salim-radji-0496b4257" className="bg-black/40 hover:bg-black/60 text-white p-3 rounded-full transition-all backdrop-blur-sm border border-white/10">
-            <FaLinkedin size={20} />
-          </a>
-        </div>
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-          <div className="w-1 h-2 bg-white/80 rounded-full mt-2 animate-scroll"></div>
-        </div>
       </div>
     </section>
-  )
+  );
 }

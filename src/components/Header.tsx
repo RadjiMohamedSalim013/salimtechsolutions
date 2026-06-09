@@ -1,145 +1,182 @@
 "use client";
+
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { FaHome, FaUser, FaCode, FaEnvelope, FaTimes, FaBars } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navItems = [
+    { href: "/", label: "Accueil" },
+    { href: "/about", label: "À propos" },
+    { href: "/services", label: "Nos Services" },
+    { href: "/projects", label: "Réalisations" },
+    { href: "/contact", label: "Contact" },
+  ];
+
   return (
-    <header
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-2 shadow-lg" : "bg-white dark:bg-gray-900 py-4"
-      }`}
-    >
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
-          {/* Logo avec dégradé de couleur */}
-          <Link
-            href="/"
-            className="text-xl font-bold transition-all duration-300 flex items-center group"
-          >
-            <span className="bg-gradient-to-r from-teal-500 to-blue-600 text-white px-3 py-2 rounded-lg mr-2 group-hover:rounded-full transition-all duration-300">
-              SALIM
-            </span>
-            
+    <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300 pt-4">
+      {/* NAV CONTAINER */}
+      <div className="max-w-6xl mx-auto px-4 w-full">
+        <nav
+          className={`
+            flex items-center justify-between
+            rounded-full px-6 py-2.5
+            border transition-all duration-300
+            ${
+              scrolled
+                ? "bg-[#0e1b2f]/70 border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl"
+                : "bg-[#0e1b2f]/30 border-white/[0.04] backdrop-blur-md"
+            }
+          `}
+        >
+          {/* LOGO SALIMTECH */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div
+              className="
+                w-8 h-8 rounded-lg
+                bg-[#0e1b2f] border border-white/10
+                flex items-center justify-center
+                text-[#cc4b4b] text-base font-bold
+                transition-all duration-300
+                group-hover:border-[#cc4b4b]/40 group-hover:shadow-[0_0_12px_rgba(204,75,75,0.2)]
+              "
+            >
+              S
+            </div>
+
+            <div className="flex flex-col justify-center">
+              <span className="text-xs font-semibold tracking-wider text-white">
+                SALIM<span className="text-white/50 font-normal">TECH</span>
+              </span>
+              <span className="text-[9px] tracking-[0.2em] uppercase text-white/40 font-medium -mt-0.5">
+                Solutions
+              </span>
+            </div>
           </Link>
 
-          {/* Navigation desktop */}
-          <ul className="hidden md:flex items-center space-x-8">
-            <NavLink href="/" icon={<FaHome className="mr-2" />}>
-              Accueil
-            </NavLink>
-            <NavLink href="/about" icon={<FaUser className="mr-2" />}>
-              À propos
-            </NavLink>
-            <NavLink href="/projects" icon={<FaCode className="mr-2" />}>
-              Projets
-            </NavLink>
-            <NavLink href="/contact" icon={<FaEnvelope className="mr-2" />}>
-              Contact
-            </NavLink>
+          {/* DESKTOP NAV */}
+          <ul className="hidden md:flex items-center gap-1 bg-white/[0.02] border border-white/[0.04] rounded-full p-1">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={`
+                      px-4 py-1.5 rounded-full text-xs font-medium tracking-wide
+                      transition-all duration-200 block relative
+                      ${
+                        isActive
+                          ? "text-white bg-white/10 shadow-[0_2px_8px_rgba(255,255,255,0.05)]"
+                          : "text-white/60 hover:text-white hover:bg-white/[0.04]"
+                      }
+                    `}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
-          {/* Bouton menu mobile */}
+          {/* RIGHT ACTION CTA */}
+          <div className="hidden md:flex items-center">
+            <Link
+              href="/contact"
+              className="
+                text-xs font-medium px-4 py-2 rounded-full
+                bg-[#cc4b4b] text-white
+                hover:bg-[#d95454] transition-all duration-200
+                shadow-[0_4px_12px_rgba(204,75,75,0.15)]
+                hover:shadow-[0_4px_20px_rgba(204,75,75,0.3)]
+                hover:scale-[1.02] active:scale-[0.98]
+              "
+            >
+              Demander un devis
+            </Link>
+          </div>
+
+          {/* MOBILE MENU BUTTON */}
           <button
-            aria-label="Menu mobile"
-            aria-expanded={isOpen}
-            className="md:hidden p-2 rounded-md hover:bg-teal-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Menu"
+            className="
+              md:hidden flex flex-col justify-center items-center w-7 h-7 rounded-full
+              bg-white/5 hover:bg-white/10 border border-white/10
+              transition-all duration-200 text-white
+            "
           >
-            {isOpen ? (
-              <FaTimes className="text-gray-800 dark:text-white h-6 w-6" />
-            ) : (
-              <FaBars className="text-gray-800 dark:text-white h-6 w-6" />
-            )}
+            <span
+              className={`h-0.5 w-3.5 bg-white rounded-full transition-transform duration-200 ${
+                isOpen ? "rotate-45 translate-y-0.5" : "-translate-y-0.5"
+              }`}
+            />
+            <span
+              className={`h-0.5 w-3.5 bg-white rounded-full transition-transform duration-200 ${
+                isOpen ? "-rotate-45 -translate-y-0.5" : "translate-y-0.5"
+              }`}
+            />
           </button>
-        </div>
+        </nav>
+      </div>
 
-        {/* Menu mobile */}
+      {/* MOBILE MENU */}
+      <div
+        className={`
+          md:hidden px-4 mt-2 transition-all duration-300 ease-in-out
+          ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"}
+        `}
+      >
         <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isOpen ? "max-h-96 opacity-100 mt-4" : "max-h-0 opacity-0"
-          }`}
+          className="
+            bg-[#0e1b2f]/90 backdrop-blur-2xl
+            border border-white/10
+            rounded-2xl p-2
+            shadow-[0_12px_40px_rgba(0,0,0,0.5)]
+          "
         >
-          <ul className="flex flex-col space-y-2 pb-4">
-            <MobileNavLink href="/" icon={<FaHome size={18} />} onClick={() => setIsOpen(false)}>
-              Accueil
-            </MobileNavLink>
-            <MobileNavLink href="/about" icon={<FaUser size={18} />} onClick={() => setIsOpen(false)}>
-              À propos
-            </MobileNavLink>
-            <MobileNavLink href="/projects" icon={<FaCode size={18} />} onClick={() => setIsOpen(false)}>
-              Projets
-            </MobileNavLink>
-            <MobileNavLink href="/contact" icon={<FaEnvelope size={18} />} onClick={() => setIsOpen(false)}>
-              Contact
-            </MobileNavLink>
-          </ul>
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className={`
+                  flex items-center justify-between
+                  px-4 py-2.5 rounded-xl
+                  text-sm font-medium transition-all duration-200
+                  ${
+                    isActive
+                      ? "bg-white/10 text-white"
+                      : "text-white/60 hover:bg-white/5 hover:text-white"
+                  }
+                `}
+              >
+                <span>{item.label}</span>
+                {isActive && (
+                  <span className="w-1 h-1 rounded-full bg-[#cc4b4b] shadow-[0_0_8px_#cc4b4b]" />
+                )}
+              </Link>
+            );
+          })}
         </div>
-      </nav>
+      </div>
     </header>
-  );
-}
-
-function NavLink({
-  href,
-  children,
-  icon,
-}: {
-  href: string;
-  children: React.ReactNode;
-  icon?: React.ReactNode;
-}) {
-  return (
-    <li>
-      <Link
-        href={href}
-        className="flex items-center text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-300 group"
-      >
-        {icon && (
-          <span className="text-teal-500 dark:text-teal-400 group-hover:scale-110 transition-transform mr-2">
-            {icon}
-          </span>
-        )}
-        <span className="relative after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-gradient-to-r after:from-teal-400 after:to-blue-500 after:bottom-0 after:left-0 group-hover:after:w-full after:transition-all after:duration-300">
-          {children}
-        </span>
-      </Link>
-    </li>
-  );
-}
-
-function MobileNavLink({
-  href,
-  children,
-  onClick,
-  icon,
-}: {
-  href: string;
-  children: React.ReactNode;
-  onClick: () => void;
-  icon?: React.ReactNode;
-}) {
-  return (
-    <li>
-      <Link
-        href={href}
-        onClick={onClick}
-        className="flex items-center py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-teal-50 dark:hover:bg-gray-700 transition-colors duration-300"
-      >
-        {icon && <span className="text-teal-500 dark:text-teal-400 mr-3">{icon}</span>}
-        {children}
-      </Link>
-    </li>
   );
 }
