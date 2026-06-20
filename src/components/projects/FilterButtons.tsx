@@ -1,10 +1,10 @@
 import { FaFilter, FaCode, FaPalette, FaVideo, FaBullhorn } from 'react-icons/fa'
 
+type FilterKey = 'all' | 'web' | 'design' | 'video' | 'branding' | 'event'
+
 type FilterButtonsProps = {
-  filter: 'all' | 'web' | 'design' | 'video' | 'branding' | 'event'
-  setFilter: (
-    value: 'all' | 'web' | 'design' | 'video' | 'branding' | 'event'
-  ) => void
+  filter: FilterKey
+  setFilter: (value: FilterKey) => void
 }
 
 const buttons = [
@@ -29,7 +29,7 @@ export default function FilterButtons({
         return (
           <button
             key={btn.key}
-            onClick={() => setFilter(btn.key as any)}
+            onClick={() => setFilter(btn.key)}
             className={`
               group flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
               transition-all duration-300 border

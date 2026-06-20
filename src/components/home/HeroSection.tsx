@@ -8,14 +8,17 @@ export default function HeroSection() {
     <section className="relative min-h-screen flex items-center bg-[#0e1b2f] pt-24 pb-16 overflow-hidden selection:bg-[#cc4b4b]/30">
 
       {/* BACKGROUND IMAGE TECH (DIGITAL) */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" aria-hidden="true">
+        {/* next/image pour meilleur contrôle perf (responsive + lazy) */}
         <img
           src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80"
-          alt="digital technology background"
+          alt=""
+          loading="lazy"
           className="w-full h-full object-cover opacity-20"
         />
         <div className="absolute inset-0 bg-[#0e1b2f]/80" />
       </div>
+
 
       {/* GLOW EFFECTS */}
       <div className="absolute top-1/4 right-[-10%] w-[600px] h-[600px] bg-[#cc4b4b]/10 blur-[140px] rounded-full pointer-events-none" />

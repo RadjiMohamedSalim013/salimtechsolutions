@@ -38,8 +38,8 @@ export default function SkillsSection() {
             </h2>
           </div>
           <div className="text-[11px] font-mono uppercase tracking-widest text-slate-500 space-y-1 md:text-right">
-            <div>// LANGAGES & PROTOCOLES : OK</div>
-            <div>// ARCHITECTURE DE SÉCURITÉ : OK</div>
+            <div>{'// LANGAGES & PROTOCOLES : OK'}</div>
+            <div>{'// ARCHITECTURE DE SÉCURITÉ : OK'}</div>
           </div>
         </div>
 
@@ -62,7 +62,7 @@ export default function SkillsSection() {
             >
               {/* VOYANT TECH DISCRET SUR CHAQUE MODULE */}
               <div className="absolute top-4 right-4 text-[9px] font-mono text-slate-600 group-hover:text-[#cc4b4b] transition-colors duration-300">
-                // MOD_{index + 1}
+                {`// MOD_${index + 1}`}
               </div>
 
               {/* COMMUTATEUR D'ICÔNE (Lumière Interne au survol) */}

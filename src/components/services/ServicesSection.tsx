@@ -12,7 +12,81 @@ import {
 } from "lucide-react";
 
 export default function ServicesSection() {
-  const [selected, setSelected] = useState<any>(null);
+  const services = [
+
+    {
+      icon: Globe,
+      title: "Développement Web",
+      description:
+        "Création de sites et applications performants, rapides et optimisés pour convertir vos visiteurs en clients.",
+      features: [
+        "Sites vitrines & e-commerce",
+        "Applications web sur mesure",
+        "Performance & SEO",
+        "UX moderne responsive",
+      ],
+    },
+    {
+      icon: PenTool,
+      title: "Identité Visuelle",
+      description:
+        "Construction d’une identité forte qui donne une vraie personnalité et crédibilité à votre marque.",
+      features: [
+        "Logo professionnel",
+        "Charte graphique",
+        "Direction artistique",
+        "Positionnement de marque",
+      ],
+    },
+    {
+      icon: Megaphone,
+      title: "Communication Digitale",
+      description:
+        "Stratégies digitales pour augmenter votre visibilité et attirer une audience qualifiée.",
+      features: [
+        "Stratégie contenu",
+        "Plan marketing",
+        "Croissance audience",
+        "Acquisition clients",
+      ],
+    },
+    {
+      icon: Palette,
+      title: "Design Graphique",
+      description:
+        "Création de visuels modernes et impactants pour vos campagnes et votre branding.",
+      features: [
+        "Affiches pro",
+        "Contenus réseaux sociaux",
+        "Branding visuel",
+        "Supports marketing",
+      ],
+    },
+    {
+      icon: Share2,
+      title: "Réseaux Sociaux",
+      description:
+        "Gestion et animation de vos réseaux pour développer une communauté engagée.",
+      features: [
+        "Gestion de pages",
+        "Création contenu",
+        "Stratégie engagement",
+        "Croissance audience",
+      ],
+    },
+    {
+      icon: Camera,
+      title: "Couverture Événementielle",
+      description:
+        "Capture photo et vidéo professionnelle pour valoriser vos événements.",
+      features: [
+        "Photo professionnelle",
+        "Vidéo événementielle",
+        "Montage",
+        "Diffusion digitale",
+      ],
+    },
+  ];
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

@@ -86,14 +86,14 @@ export default function TimelineSection() {
         <div className="mb- flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-slate-200">
           <div>
             <span className="text-[10px] font-bold tracking-[0.3em] text-[#cc4b4b] uppercase block mb-2">
-              // TRAJECTOIRE ACADÉMIQUE
+              {'// TRAJECTOIRE ACADÉMIQUE'}
             </span>
             <h2 className="text-4xl sm:text-5xl font-black text-[#0e1b2f] tracking-tight uppercase leading-none">
               Parcours <span className="text-slate-400 font-light">&</span> Certifications
             </h2>
           </div>
           <p className="text-[11px] text-slate-400 max-w-xs leading-relaxed uppercase tracking-wider font-mono md:text-right">
-            Validation des compétences d'ingénierie et de leadership.
+            Validation des compétences d&apos;ingénierie et de leadership.
           </p>
         </div>
 
@@ -114,7 +114,6 @@ export default function TimelineSection() {
               `}
             >
               
-              {/* DATE / STATUT (Colonne gauche stable) */}
               <div className="md:col-span-3 flex flex-col justify-center">
                 <span className="text-xl font-black text-[#0e1b2f] tracking-tight group-hover:text-[#cc4b4b] transition-colors duration-200">
                   {step.year}

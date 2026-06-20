@@ -26,7 +26,7 @@ export default function InitiativesSection() {
             Projets & Engagements
           </h2>
           <p className="text-4xl md:text-5xl font-light tracking-tight text-[#0e1b2f]">
-            Développement d'écosystèmes <br />
+            Développement d&apos;écosystèmes <br />
             <span className="font-bold">collaboratifs.</span>
           </p>
         </div>
