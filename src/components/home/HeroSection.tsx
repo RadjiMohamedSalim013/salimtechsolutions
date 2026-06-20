@@ -10,6 +10,7 @@ export default function HeroSection() {
       {/* BACKGROUND IMAGE TECH (DIGITAL) */}
       <div className="absolute inset-0" aria-hidden="true">
         {/* next/image pour meilleur contrôle perf (responsive + lazy) */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80"
           alt=""
