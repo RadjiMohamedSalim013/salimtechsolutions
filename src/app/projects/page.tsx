@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-import type { Metadata } from "next";
-
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
