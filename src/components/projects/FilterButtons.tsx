@@ -7,12 +7,12 @@ type FilterButtonsProps = {
   setFilter: (value: FilterKey) => void
 }
 
-const buttons = [
-  { key: 'all', label: 'Tous', icon: FaFilter },
-  { key: 'web', label: 'Web', icon: FaCode },
-  { key: 'design', label: 'Design', icon: FaPalette },
-  { key: 'video', label: 'Vidéo', icon: FaVideo },
-  { key: 'branding', label: 'Branding', icon: FaBullhorn },
+const buttons: Array<{ key: FilterKey; label: string; icon: React.ComponentType<{ className?: string }> }> = [
+  { key: "all", label: "Tous", icon: FaFilter },
+  { key: "web", label: "Web", icon: FaCode },
+  { key: "design", label: "Design", icon: FaPalette },
+  { key: "video", label: "Vidéo", icon: FaVideo },
+  { key: "branding", label: "Branding", icon: FaBullhorn },
 ]
 
 export default function FilterButtons({
